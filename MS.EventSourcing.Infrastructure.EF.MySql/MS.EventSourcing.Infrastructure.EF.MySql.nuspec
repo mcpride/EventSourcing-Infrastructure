@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>
+    </releaseNotes>
+    <copyright>Copyright &#xA9; Marco Stolze 2015</copyright>
+    <dependencies>
+      <dependency id="MS.EventSourcing.Infrastructure" version="$version$" />
+      <dependency id="MS.EventSourcing.Infrastructure.EF" version="$version$" />
+    </dependencies>
+    <tags>eventsourcing cqrs mysql entityframework ef</tags>
+  </metadata>
+</package>

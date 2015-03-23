@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{00EFEE7B-AF4F-474F-A5BF-6C056269CB26}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MS.EventSourcing.Infrastructure.EF.MySql</RootNamespace>
+    <AssemblyName>MS.EventSourcing.Infrastructure.EF.MySql</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\common\signature\keyfile.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.6.9.5\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.Entity.6.9.5\lib\net45\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\common\EventSourcingAssemblyInfo.cs">
+      <Link>Properties\EventSourcingAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="EventStoreContextMigrations\MySqlConfiguration.cs" />
+    <Compile Include="Models\MySqlMigrationHistoryContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MS.EventSourcing.Infrastructure.EF\MS.EventSourcing.Infrastructure.EF.csproj">
+      <Project>{10caeffc-b7df-43e4-992d-b32975c8c618}</Project>
+      <Name>MS.EventSourcing.Infrastructure.EF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MS.EventSourcing.Infrastructure\MS.EventSourcing.Infrastructure.csproj">
+      <Project>{b5cd8fe0-a99e-47f0-9617-1076415d3000}</Project>
+      <Name>MS.EventSourcing.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\common\signature\keyfile.snk">
+      <Link>keyfile.snk</Link>
+    </None>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <None Include="MS.EventSourcing.Infrastructure.EF.MySql.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MySql\201410282042361_InitialCreate.sql" />
+    <Content Include="MySql\201501141419541_AddTypeCombinedIndexes.sql" />
+    <Content Include="MySql\201501141419541_AddTypeCombinedIndexes_Revert.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="CoreResGen" DependsOnTargets="$(CoreResGenDependsOn)">
+    <ItemGroup>
+      <_Temporary Remove="@(_Temporary)" />
+    </ItemGroup>
+    <PropertyGroup>
+      <GenerateResourceMSBuildArchitecture Condition="'$(GenerateResourceMSBuildArchitecture)' == ''">$(PlatformTargetAsMSBuildArchitecture)</GenerateResourceMSBuildArchitecture>
+      <ResgenToolPath Condition="'$(ResgenToolPath)' == ''">$(TargetFrameworkSDKToolsDirectory)</ResgenToolPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(TargetFrameworkAsMSBuildRuntime)' != '' and '$(GenerateResourceMSBuildArchitecture)' != ''">
+      <!-- In the general case, we want to fail to run the task if the task host it's requesting doesn't exist, because we'd rather let the
+       user know there's something wrong than just silently generate something that's probably not quite right. However, in a few 
+       circumstances, there are tasks that are already aware of runtime / bitness concerns, in which case even if we go ahead and run 
+       the more recent version of the task, it should be able to generate something correct.  GenerateResource is one such task, so 
+       we check for the existence of the targeted task host so that we can use it preferentially, but if it can't be found, we'll fall 
+       back to the current task since it's still mostly correct.
+
+       In particular, we need to do this because otherwise people with Dev10 on a machine that they upgrade to Win8 will be broken: 
+       they'll have ResGen from the 7.0A SDK installed, so launching ResGen will still work, but the CLR2 task host is only installed by 
+       the 8.0A SDK, which they won't have installed, and thus without this fallback mechanism, their projects targeting v3.5 will 
+       suddenly start failing to build.-->
+      <GenerateResourceMSBuildRuntime Condition="'$(GenerateResourceMSBuildRuntime)' == '' and &#xD;&#xA;                 $([MSBuild]::DoesTaskHostExist(`$(TargetFrameworkAsMSBuildRuntime)`, `$(GenerateResourceMSBuildArchitecture)`))">$(TargetFrameworkAsMSBuildRuntime)</GenerateResourceMSBuildRuntime>
+      <!-- If the targeted runtime doesn't exist, fall back to current -->
+      <GenerateResourceMSBuildRuntime Condition="'$(GenerateResourceMSBuildRuntime)' == ''">CurrentRuntime</GenerateResourceMSBuildRuntime>
+    </PropertyGroup>
+    <!-- 4.0 task has some new parameters that we want to make use of if we're targeting 4.0 -->
+    <GenerateResource Sources="@(EmbeddedResource)" UseSourcePath="$(UseSourcePath)" References="@(ReferencePath)" AdditionalInputs="$(MSBuildAllProjects)" NeverLockTypeAssemblies="$(GenerateResourceNeverLockTypeAssemblies)" StateFile="$(IntermediateOutputPath)$(MSBuildProjectFile).GenerateResource.Cache" StronglyTypedClassName="%(EmbeddedResource.StronglyTypedClassName)" StronglyTypedFileName="%(EmbeddedResource.StronglyTypedFileName)" StronglyTypedLanguage="%(EmbeddedResource.StronglyTypedLanguage)" StronglyTypedNamespace="%(EmbeddedResource.StronglyTypedNamespace)" StronglyTypedManifestPrefix="%(EmbeddedResource.StronglyTypedManifestPrefix)" PublicClass="%(EmbeddedResource.PublicClass)" OutputResources="@(EmbeddedResource->'$(IntermediateOutputPath)%(Filename).resources')" Condition="'%(EmbeddedResource.Type)' == 'Resx' and '%(EmbeddedResource.GenerateResource)' != 'false' and '$(GenerateResourceMSBuildRuntime)' != 'CLR2'" SdkToolsPath="$(ResgenToolPath)" ExecuteAsTool="$(ResGenExecuteAsTool)" EnvironmentVariables="$(ResGenEnvironment)" MSBuildRuntime="$(GenerateResourceMSBuildRuntime)" MSBuildArchitecture="$(GenerateResourceMSBuildArchitecture)">
+      <Output TaskParameter="FilesWritten" ItemName="FileWrites" />
+      <Output TaskParameter="StronglyTypedFileName" ItemName="Compile" />
+      <!-- Gather Sources as an output since it will contain OutputResource metadata indicating the final output resource that it was compiled into -->
+      <Output TaskParameter="Sources" ItemName="_Temporary" />
+    </GenerateResource>
+    <!-- But we can't use those parameters if we're targeting 3.5, since we're using the 3.5 task -->
+    <GenerateResource Sources="@(EmbeddedResource)" UseSourcePath="$(UseSourcePath)" References="@(ReferencePath)" AdditionalInputs="$(MSBuildAllProjects)" NeverLockTypeAssemblies="$(GenerateResourceNeverLockTypeAssemblies)" StateFile="$(IntermediateOutputPath)$(MSBuildProjectFile).GenerateResource.Cache" StronglyTypedClassName="%(EmbeddedResource.StronglyTypedClassName)" StronglyTypedFileName="%(EmbeddedResource.StronglyTypedFileName)" StronglyTypedLanguage="%(EmbeddedResource.StronglyTypedLanguage)" StronglyTypedNamespace="%(EmbeddedResource.StronglyTypedNamespace)" StronglyTypedManifestPrefix="%(EmbeddedResource.StronglyTypedManifestPrefix)" PublicClass="%(EmbeddedResource.PublicClass)" OutputResources="@(EmbeddedResource->'$(IntermediateOutputPath)%(ManifestResourceName).resources')" MSBuildRuntime="$(GenerateResourceMSBuildRuntime)" MSBuildArchitecture="$(GenerateResourceMSBuildArchitecture)" Condition="'%(EmbeddedResource.Type)' == 'Resx' and '%(EmbeddedResource.GenerateResource)' != 'false' and '$(GenerateResourceMSBuildRuntime)' == 'CLR2'">
+      <Output TaskParameter="FilesWritten" ItemName="FileWrites" />
+      <Output TaskParameter="StronglyTypedFileName" ItemName="Compile" />
+      <!-- Gather Sources as an output since it will contain OutputResource metadata indicating the final output resource that it was compiled into -->
+      <Output TaskParameter="Sources" ItemName="_Temporary" />
+    </GenerateResource>
+    <ItemGroup>
+      <EmbeddedResource Remove="@(_Temporary)" />
+      <!-- Add back the Sources list (with OutputResource metadata) that we output from GenerateResource into EmbeddedResource -->
+      <EmbeddedResource Include="@(_Temporary)" />
+      <_Temporary Remove="@(_Temporary)" />
+      <!-- EMITTED FOR COMPATIBILITY REASONS ONLY. CONSUME EMBEDDEDRESOURCE INSTEAD -->
+      <ManifestResourceWithNoCulture Include="@(EmbeddedResource->'%(OutputResource)')" Condition="'%(EmbeddedResource.WithCulture)'=='false' and '%(EmbeddedResource.Type)' == 'Resx'">
+        <EmittedForCompatibilityOnly>true</EmittedForCompatibilityOnly>
+      </ManifestResourceWithNoCulture>
+      <ManifestNonResxWithNoCultureOnDisk Include="@(EmbeddedResource)" Condition="'%(EmbeddedResource.WithCulture)'=='false' and '%(EmbeddedResource.Type)' == 'Non-Resx'">
+        <EmittedForCompatibilityOnly>true</EmittedForCompatibilityOnly>
+      </ManifestNonResxWithNoCultureOnDisk>
+      <!-- EMITTED FOR COMPATIBILITY REASONS ONLY. CONSUME EMBEDDEDRESOURCE INSTEAD -->
+      <ManifestResourceWithCulture Include="@(EmbeddedResource->'%(OutputResource)')" Condition="'%(EmbeddedResource.WithCulture)'=='true' and '%(EmbeddedResource.Type)' == 'Resx'">
+        <EmittedForCompatibilityOnly>true</EmittedForCompatibilityOnly>
+      </ManifestResourceWithCulture>
+      <ManifestNonResxWithCultureOnDisk Include="@(EmbeddedResource)" Condition="'%(EmbeddedResource.WithCulture)'=='true' and '%(EmbeddedResource.Type)' == 'Non-Resx'">
+        <EmittedForCompatibilityOnly>true</EmittedForCompatibilityOnly>
+      </ManifestNonResxWithCultureOnDisk>
+    </ItemGroup>
+  </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Aktivieren Sie die Wiederherstellung von NuGet-Paketen, um die fehlende Datei herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+</Project>

@@ -1,0 +1,90 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5ECE1542-56AA-4463-8AB1-D840A606883A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{89D4244C-D210-44F9-B9DB-566DF60E614C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{7870F2B0-51A9-41EE-AB88-9D8653F3E520}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MS.EventSourcing.Infrastructure", "MS.EventSourcing.Infrastructure\MS.EventSourcing.Infrastructure.csproj", "{B5CD8FE0-A99E-47F0-9617-1076415D3000}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MS.EventSourcing.Infrastructure.UnitTests", "MS.EventSourcing.Infrastructure.UnitTests\MS.EventSourcing.Infrastructure.UnitTests.csproj", "{E7090C0F-0366-4448-8E05-5635435DD73C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MS.EventSourcing.Infrastructure.EF", "MS.EventSourcing.Infrastructure.EF\MS.EventSourcing.Infrastructure.EF.csproj", "{10CAEFFC-B7DF-43E4-992D-B32975C8C618}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{F5C1C74B-70DB-45C5-9360-76518636D0CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MS.EventSourcing.Infrastructure.EF.MySql.IntegrationTests", "MS.EventSourcing.Infrastructure.EF.MySql.IntegrationTests\MS.EventSourcing.Infrastructure.EF.MySql.IntegrationTests.csproj", "{C93E9360-F321-49D1-9112-595DF79A3A54}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2F571ED9-9C59-47D7-A691-6FC4F511DED2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{F284077B-215C-42C7-A628-887B2673CAB1}"
+	ProjectSection(SolutionItems) = preProject
+		common\EventSourcingAssemblyInfo.cs = common\EventSourcingAssemblyInfo.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "signature", "signature", "{63502331-D939-4535-8406-3192F7192B78}"
+	ProjectSection(SolutionItems) = preProject
+		common\signature\keyfile.snk = common\signature\keyfile.snk
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MS.EventSourcing.Infrastructure.MassTransit", "MS.EventSourcing.Infrastructure.MassTransit\MS.EventSourcing.Infrastructure.MassTransit.csproj", "{E1118C44-9C52-4834-BBD6-BCF222719A5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MS.EventSourcing.Infrastructure.EF.MySql", "MS.EventSourcing.Infrastructure.EF.MySql\MS.EventSourcing.Infrastructure.EF.MySql.csproj", "{00EFEE7B-AF4F-474F-A5BF-6C056269CB26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7D3C673E-0F2D-4E10-9C54-CB985A68ADF6}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5CD8FE0-A99E-47F0-9617-1076415D3000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5CD8FE0-A99E-47F0-9617-1076415D3000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5CD8FE0-A99E-47F0-9617-1076415D3000}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5CD8FE0-A99E-47F0-9617-1076415D3000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7090C0F-0366-4448-8E05-5635435DD73C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7090C0F-0366-4448-8E05-5635435DD73C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7090C0F-0366-4448-8E05-5635435DD73C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7090C0F-0366-4448-8E05-5635435DD73C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10CAEFFC-B7DF-43E4-992D-B32975C8C618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10CAEFFC-B7DF-43E4-992D-B32975C8C618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10CAEFFC-B7DF-43E4-992D-B32975C8C618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10CAEFFC-B7DF-43E4-992D-B32975C8C618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C93E9360-F321-49D1-9112-595DF79A3A54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C93E9360-F321-49D1-9112-595DF79A3A54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C93E9360-F321-49D1-9112-595DF79A3A54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C93E9360-F321-49D1-9112-595DF79A3A54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1118C44-9C52-4834-BBD6-BCF222719A5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1118C44-9C52-4834-BBD6-BCF222719A5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1118C44-9C52-4834-BBD6-BCF222719A5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1118C44-9C52-4834-BBD6-BCF222719A5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00EFEE7B-AF4F-474F-A5BF-6C056269CB26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00EFEE7B-AF4F-474F-A5BF-6C056269CB26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00EFEE7B-AF4F-474F-A5BF-6C056269CB26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00EFEE7B-AF4F-474F-A5BF-6C056269CB26}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{89D4244C-D210-44F9-B9DB-566DF60E614C} = {5ECE1542-56AA-4463-8AB1-D840A606883A}
+		{B5CD8FE0-A99E-47F0-9617-1076415D3000} = {7870F2B0-51A9-41EE-AB88-9D8653F3E520}
+		{E7090C0F-0366-4448-8E05-5635435DD73C} = {89D4244C-D210-44F9-B9DB-566DF60E614C}
+		{10CAEFFC-B7DF-43E4-992D-B32975C8C618} = {7870F2B0-51A9-41EE-AB88-9D8653F3E520}
+		{F5C1C74B-70DB-45C5-9360-76518636D0CB} = {5ECE1542-56AA-4463-8AB1-D840A606883A}
+		{C93E9360-F321-49D1-9112-595DF79A3A54} = {F5C1C74B-70DB-45C5-9360-76518636D0CB}
+		{F284077B-215C-42C7-A628-887B2673CAB1} = {2F571ED9-9C59-47D7-A691-6FC4F511DED2}
+		{63502331-D939-4535-8406-3192F7192B78} = {F284077B-215C-42C7-A628-887B2673CAB1}
+		{E1118C44-9C52-4834-BBD6-BCF222719A5F} = {7870F2B0-51A9-41EE-AB88-9D8653F3E520}
+		{00EFEE7B-AF4F-474F-A5BF-6C056269CB26} = {7870F2B0-51A9-41EE-AB88-9D8653F3E520}
+	EndGlobalSection
+EndGlobal
