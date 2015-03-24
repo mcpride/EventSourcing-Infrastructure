@@ -62,6 +62,7 @@
     </Compile>
     <Compile Include="EventSourcing\Infrastructure\CommandHandling\ICommandBus.cs" />
     <Compile Include="EventSourcing\Infrastructure\CommandHandling\ICommandResult.cs" />
+    <Compile Include="EventSourcing\Infrastructure\CommandHandling\InMemoryCommandBus.cs" />
     <Compile Include="EventSourcing\Infrastructure\Domain\AggregateRoot.cs" />
     <Compile Include="EventSourcing\Infrastructure\Domain\AggregateRootWithSnapshot.cs" />
     <Compile Include="EventSourcing\Infrastructure\Domain\DomainContext.cs" />
@@ -81,6 +82,11 @@
     <Compile Include="EventSourcing\Infrastructure\EventHandling\InMemoryEventStore.cs" />
     <Compile Include="EventSourcing\Infrastructure\EventHandling\InMemorySnapshotStore.cs" />
     <Compile Include="EventSourcing\Infrastructure\EventHandling\ISnapshotStore.cs" />
+    <Compile Include="Infrastructure\EnumerableExtensionMethods.cs" />
+    <Compile Include="Infrastructure\EventAggregator.cs" />
+    <Compile Include="Infrastructure\EventAggregatorExtensionsMethods.cs" />
+    <Compile Include="Infrastructure\IEventAggregator.cs" />
+    <Compile Include="Infrastructure\IHandle.cs" />
     <Compile Include="Infrastructure\ReflectionExtensionsMethods.cs">
       <SubType>Code</SubType>
     </Compile>
