@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using MS.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MS.QualityTools.UnitTestFramework.Specifications;
 using MS.EventSourcing.Infrastructure.EventHandling;
@@ -42,7 +42,7 @@ namespace MS.EventSourcing.Infrastructure.UnitTests.Specs
                 {
                     var customer = new Customer {Name = "Mister X"};
                     context.State.Customer = customer;
-                    var address = new Address(customer, Guid.NewGuid()) {Street = "Berliner Allee"};
+                    var address = new Address(customer, Uuid.NewId()) {Street = "Berliner Allee"};
                     context.State.Address = address;
                 })
             .When("a list of 3 events was replayed", context =>

@@ -1,5 +1,5 @@
-﻿using System;
-using MS.EventSourcing.Infrastructure.EventHandling;
+﻿using MS.EventSourcing.Infrastructure.EventHandling;
+using MS.Infrastructure;
 
 namespace MS.EventSourcing.Infrastructure.Domain
 {
@@ -9,19 +9,24 @@ namespace MS.EventSourcing.Infrastructure.Domain
     /// </summary>
     public class Entity
     {
-        public Entity(AggregateRoot parent, Guid entityId)
+        public Entity(AggregateRoot parent, Uuid entityId)
         {
             Id = entityId;
             Parent = parent;
-            Parent.Associate(this);
+            if (Parent != null) Parent.Associate(this);
         }
 
-        protected void ApplyEvent(DomainEvent domainEvent)
+        public void ApplyEvent(DomainEvent domainEvent)
         {
+            var @event = domainEvent as DomainEntityEvent;
+            if (@event != null)
+            {
+                @event.EntityId = Id;
+            }
             Parent.ApplyEvent(domainEvent);
         }
         
-        public Guid Id { get; protected set; }
+        public Uuid Id { get; protected set; }
 
         public AggregateRoot Parent { get; set; }
     }

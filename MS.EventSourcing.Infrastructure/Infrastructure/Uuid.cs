@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Newtonsoft.Json;
 
 namespace MS.Infrastructure
 {
@@ -96,6 +97,7 @@ namespace MS.Infrastructure
         public Byte B16;
     }
 
+    [JsonConverter(typeof(UuidJsonConverter))]
     [StructLayout(LayoutKind.Explicit)]
     public struct Uuid : IComparable, IFormattable, IEquatable<Uuid>
     {
@@ -111,6 +113,30 @@ namespace MS.Infrastructure
         public UuidShort AsShort;
         [FieldOffset(0)]
         public UuidBytes AsByte;
+
+
+        private static readonly Uuid _empty = new Uuid { AsGuid = Guid.Empty };
+        
+        public Uuid(string g)
+        {
+            var guid = new Guid(g);
+            AsByte = new UuidBytes();
+            AsShort = new UuidShort();
+            AsInteger = new UuidInteger();
+            AsCardinal = new UuidCardinal();
+            AsLong = new UuidLong();
+            AsGuid = guid;
+        }
+
+        public Uuid(Guid guid)
+        {
+            AsByte = new UuidBytes();
+            AsShort =  new UuidShort();
+            AsInteger = new UuidInteger();
+            AsCardinal = new UuidCardinal();
+            AsLong = new UuidLong();
+            AsGuid = guid;
+        }
 
         public override bool Equals(object obj)
         {
@@ -128,6 +154,11 @@ namespace MS.Infrastructure
             // ReSharper disable NonReadonlyFieldInGetHashCode
             return AsGuid.GetHashCode();
             // ReSharper restore NonReadonlyFieldInGetHashCode
+        }
+
+        public override string ToString()
+        {
+            return AsGuid.ToString();
         }
 
         public string ToString(string format)
@@ -171,13 +202,41 @@ namespace MS.Infrastructure
 
         public static Uuid Empty()
         {
-            return new Uuid { AsGuid = Guid.Empty };
+            return _empty;
         }
 
         public static class StringResources
         {
             public static Func<string> ErrArgumentMustBeOfTypeUuid = () => "Argument must be of type 'Uuid'!";
         }
+    }
 
+    public class UuidJsonConverter : JsonConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            var id = (Uuid)value;
+            serializer.Serialize(writer, id.AsGuid.ToString());
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType != JsonToken.String)
+                throw new JsonSerializationException(string.Format(StringResources.ErrUnexpectedTokenType(), reader.TokenType));
+
+            var text = reader.Value.ToString();
+
+            return string.IsNullOrEmpty(text) ? Uuid.Empty() : new Uuid(text);
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return objectType == typeof(Uuid);
+        }
+
+        public static class StringResources
+        {
+            public static Func<string> ErrUnexpectedTokenType = () => "Unexpected token parsing Uuid. Expected was type of String, got type of {0}.";
+        }
     }
 }

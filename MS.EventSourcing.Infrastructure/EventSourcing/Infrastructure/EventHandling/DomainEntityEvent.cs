@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-
+﻿using MS.Infrastructure;
 namespace MS.EventSourcing.Infrastructure.EventHandling
 {
     /// <summary>
@@ -8,6 +6,6 @@ namespace MS.EventSourcing.Infrastructure.EventHandling
     /// </summary>
     public abstract class DomainEntityEvent : DomainEvent
     {
-        public Guid EntityId { get; set; }
+        public Uuid EntityId { get; set; }
     }
 }

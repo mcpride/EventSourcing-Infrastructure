@@ -1,6 +1,7 @@
 ﻿using System;
 using MS.EventSourcing.Infrastructure.Domain;
 using MS.EventSourcing.Infrastructure.UnitTests.Events;
+using MS.Infrastructure;
 
 namespace MS.EventSourcing.Infrastructure.UnitTests.Entities
 {
@@ -9,7 +10,7 @@ namespace MS.EventSourcing.Infrastructure.UnitTests.Entities
         public string Street { get; set; }
         public string ZipCode { get; set; }
 
-        public Address(AggregateRoot parent, Guid entityId)
+        public Address(AggregateRoot parent, Uuid entityId)
             : base(parent, entityId)
         {
         }

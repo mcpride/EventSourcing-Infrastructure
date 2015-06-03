@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,8 +15,8 @@ namespace MS.EventSourcing.Infrastructure.Domain
     {
         private readonly List<DomainEvent> _appliedEvents = new List<DomainEvent>();
         private readonly List<Entity> _entities = new List<Entity>();
-        private static readonly Dictionary<string, MethodInfo> CachedLocalMethods = new Dictionary<string, MethodInfo>();
-        private static readonly Dictionary<string, MethodInfo> CachedEntityMethods = new Dictionary<string, MethodInfo>(); 
+        private static readonly IDictionary<string, MethodInfo> CachedLocalMethods = new ConcurrentDictionary<string, MethodInfo>();
+        private static readonly IDictionary<string, MethodInfo> CachedEntityMethods = new ConcurrentDictionary<string, MethodInfo>(); 
 
         /// <summary>
         /// Creates a new aggregate root with a new ID
@@ -66,11 +67,9 @@ namespace MS.EventSourcing.Infrastructure.Domain
             }
 
             // Call the apply method on the domain model instance
-            if (!(domainEvent is DomainEntityEvent))
-            {
-                ApplyEventToSelf(domainEvent, isNew);
-            }
-            else
+            ApplyEventToSelf(domainEvent, isNew);
+            
+            if (domainEvent is DomainEntityEvent)
             {
                 ApplyEventToEntities(domainEvent as DomainEntityEvent, isNew);
             }
@@ -119,7 +118,7 @@ namespace MS.EventSourcing.Infrastructure.Domain
         /// <param name="isNew">True if the event is new to the event stream; otherwise false</param>
         private void ApplyEventToSelf(DomainEvent domainEvent, bool isNew)
         {
-            ApplyMethodWithCaching(this, domainEvent, isNew, CachedLocalMethods);
+            ApplyMethodWithCaching(this, domainEvent, isNew, CachedLocalMethods, false);
         }
 
         /// <summary>
@@ -136,29 +135,28 @@ namespace MS.EventSourcing.Infrastructure.Domain
                 return;
             }
 
-            ApplyMethodWithCaching(entity, entityEvent, isNew, CachedEntityMethods);
+            ApplyMethodWithCaching(entity, entityEvent, isNew, CachedEntityMethods, true);
         }
 
-        private void ApplyMethodWithCaching(object instanceToApply, DomainEvent eventToApply, bool isNew, IDictionary<string, MethodInfo> cache)
+        private void ApplyMethodWithCaching(object instanceToApply, DomainEvent eventToApply, bool isNew, IDictionary<string, MethodInfo> cache, bool toEntity)
         {
             var eventType = eventToApply.GetType();
 
             var localKey = string.Format("{0},{1}", GetType().FullName, eventType);
-            MethodInfo method = null;
+            MethodInfo method;
 
             // Check of the handler (method info) for this event has been cached
-            if (cache.ContainsKey(localKey))
-            {
-                method = cache[localKey];
-            }
-            else
+            if (!cache.TryGetValue(localKey, out method))
             {
                 // Get the convention-based handler
-                var applyDomainEventType = typeof(IApplyDomainEvent<>).MakeGenericType(eventType);
-                if (applyDomainEventType.IsInstanceOfType(instanceToApply))
+                if (!toEntity)
                 {
-                    method = applyDomainEventType.GetMethod("Apply");
-                    cache.Add(localKey, method);
+                    var applyDomainEventType = typeof(IApplyDomainEvent<>).MakeGenericType(eventType);
+                    if (applyDomainEventType.IsInstanceOfType(instanceToApply))
+                    {
+                        method = applyDomainEventType.GetMethod("Apply");
+                        cache.Add(localKey, method);
+                    }
                 }
                 else if (eventToApply.GetType().IsSubclassOf(typeof(DomainEntityEvent)))
                 {
