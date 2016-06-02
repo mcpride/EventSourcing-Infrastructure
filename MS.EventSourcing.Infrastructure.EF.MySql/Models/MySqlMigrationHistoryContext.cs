@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Migrations.History;
 using MySql.Data.Entity;
 
-namespace MS.EventSourcing.Infrastructure.EF.MySql.Models
+namespace MS.EventSourcing.Infrastructure.EF.Models
 {
     public class MySqlMigrationHistoryContext : MySqlHistoryContext
     {

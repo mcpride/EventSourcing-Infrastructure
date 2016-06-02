@@ -1,8 +1,7 @@
 using MySql.Data.Entity;
-using MS.EventSourcing.Infrastructure.EF.EventStoreContextMigrations;
-using MS.EventSourcing.Infrastructure.EF.MySql.Models;
+using MS.EventSourcing.Infrastructure.EF.Models;
 
-namespace MS.EventSourcing.Infrastructure.EF.MySql.EventStoreContextMigrations
+namespace MS.EventSourcing.Infrastructure.EF.EventStoreContextMigrations
 {
     internal sealed class MySqlConfiguration : Configuration
     {
