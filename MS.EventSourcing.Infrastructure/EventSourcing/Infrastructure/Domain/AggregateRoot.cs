@@ -66,12 +66,15 @@ namespace MS.EventSourcing.Infrastructure.Domain
                 domainEvent.EventDate = DateTime.UtcNow;
             }
 
-            // Call the apply method on the domain model instance
-            ApplyEventToSelf(domainEvent, isNew);
-            
-            if (domainEvent is DomainEntityEvent)
+            if (!(domainEvent is IExternalEvent))
             {
-                ApplyEventToEntities(domainEvent as DomainEntityEvent, isNew);
+                // Call the apply method on the domain model instance
+                ApplyEventToSelf(domainEvent, isNew);
+
+                if (domainEvent is DomainEntityEvent)
+                {
+                    ApplyEventToEntities(domainEvent as DomainEntityEvent, isNew);
+                }
             }
 
             // Save the event for persistance if it's new

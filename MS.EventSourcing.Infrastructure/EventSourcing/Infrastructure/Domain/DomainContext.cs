@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using ReflectionMagic;
 using MS.EventSourcing.Infrastructure.EventHandling;
 using MS.Infrastructure;
@@ -44,8 +45,9 @@ namespace MS.EventSourcing.Infrastructure.Domain
             if (root == null) throw new ArgumentNullException("root");
             if (!broadcastOnly)
             {
+                var eventsToStore = root.AppliedEvents.Where(domainEvent => !(domainEvent is IExternalEvent));
                 // Persist events to the event store
-                _eventStore.Insert(root.Id, root.GetType().Name, root.AppliedEvents);
+                _eventStore.Insert(root.Id, root.GetType().Name, eventsToStore);
             }
 
             // Publish events to interested parties
